@@ -1,5 +1,5 @@
-// const server = process.env.SERVER || "http://localhost:8080";
-const socket = io("http://139.177.178.13:8080");
+// const socket = io("http://139.177.178.13:8080");
+const socket = io("http://localhost:8080");
 
 const wordConfirm = document.getElementById("wordConfirm");
 const wordConfirmDisabled = document.getElementById("wordConfirmDisabled");
@@ -61,23 +61,9 @@ window.addEventListener("beforeunload", function (e) {
 function handleWordConfirm() {
   if (wordInput.value) {
     wordInput.value = wordInput.value.trim();
-    if (
-      currentSentence.innerText.length === 0 ||
-      currentSentence.innerText
-        .split(" ")
-        [currentSentence.innerText.split(" ").length - 1].endsWith(".")
-    ) {
-      currentSentence.innerText = `${currentSentence.innerText} ${
-        wordInput.value.split(" ")[0]
-      }`;
-    } else {
-      currentSentence.innerText = `${currentSentence.innerText} ${
-        wordInput.value.toLowerCase().split(" ")[0]
-      }`;
-    }
+    socket.emit("next", id.innerText, wordInput.value.split(" ")[0]);
     wordInput.value = "";
     disableButton();
-    socket.emit("next", id.innerText, currentSentence.innerText);
   } else {
     alert("Please Input something bruh");
   }
