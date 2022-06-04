@@ -1,4 +1,4 @@
-const socket = io("http://139.177.178.13:8080");
+const socket = io("https://139.177.178.13:8080");
 // const socket = io("http://localhost:8080");
 
 const wordConfirm = document.getElementById("wordConfirm");
